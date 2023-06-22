@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\API\v1\Position;
+use App\Models\Positions;
 use Illuminate\Http\Request;
 
 class PositionsController extends Controller
@@ -44,7 +44,7 @@ class PositionsController extends Controller
      * @param  \App\Models\Positions  $positions
      * @return \Illuminate\Http\Response
      */
-    public function show(Position $position)
+    public function show($id)
     {
         //
     }
@@ -55,7 +55,7 @@ class PositionsController extends Controller
      * @param  \App\Models\Positions  $positions
      * @return \Illuminate\Http\Response
      */
-    public function edit(Position $position)
+    public function edit($id)
     {
         //
     }
@@ -67,7 +67,7 @@ class PositionsController extends Controller
      * @param  \App\Models\Positions  $positions
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Position $position)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -78,7 +78,7 @@ class PositionsController extends Controller
      * @param  \App\Models\Positions  $positions
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Position $position)
+    public function destroy($id)
     {
         //
     }

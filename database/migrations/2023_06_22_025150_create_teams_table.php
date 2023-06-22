@@ -17,8 +17,8 @@ class CreateTeamsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
-            $table->string('path_crest');
-            $table->integer('state_fk')->unsigned();
+            $table->string('path_crest')->nullable();
+            $table->integer('state_id')->unsigned();
             $table->foreign('state_id')
                 ->references('id')
                 ->on('states')

@@ -19,10 +19,16 @@ class CreateEmployeesTable extends Migration
             $table->string('name');
             $table->integer('age');
             $table->tinyInteger('genre');
-            $table->integer('team_fk')->unsigned();
-            $table->foreign('team_fk')
+            $table->string('path_photo')->nullable();
+            $table->integer('team_id')->unsigned();
+            $table->foreign('team_id')
                   ->references('id')
                   ->on('teams')
+                  ->onDelete('cascade');
+            $table->integer('position_id');
+            $table->foreign('position_id')
+                  ->references('id')
+                  ->on('positions')
                   ->onDelete('cascade');
         });
     }

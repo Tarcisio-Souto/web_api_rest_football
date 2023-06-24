@@ -19,7 +19,7 @@ class CreateEmployeesTable extends Migration
             $table->string('name');
             $table->integer('age');
             $table->tinyInteger('genre');
-            $table->string('path_photo')->nullable();
+            $table->string('image')->nullable();
             $table->integer('team_id')->unsigned();
             $table->foreign('team_id')
                   ->references('id')

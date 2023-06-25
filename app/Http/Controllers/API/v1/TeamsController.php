@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateTeamsFormRequest;
 use App\Models\Teams;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
@@ -87,16 +88,54 @@ class TeamsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUpdateTeamsFormRequest $request, $id)
     {
+        $data = $request->all();
         $team = $this->teams->find($id);
-        
+
         if (!$team) {
             return response()->json(['error' => 'Time não encontrado.', 404]);
         }
 
-        $team->update($request->all());
-        return response()->json([$team, 'success' => 'Registro atualizado com sucesso', 200]);
+        if ($team->image) {
+
+            if ($request->image) {
+                if (Storage::exists("{$this->path}/{$team->image}"))
+                    Storage::delete("{$this->path}/{$team->image}");
+            }
+
+            if (!$request->image) {
+
+                $old_extension = explode(".", $team->image)[1];
+                $new_name_img = Str::kebab($request->name);
+                $old_name_img = $team->image;            
+                
+                $nameFile = "{$new_name_img}.{$old_extension}";
+                $data['image'] = $nameFile;
+
+                Storage::move("{$this->path}/{$old_name_img}", "{$this->path}/{$nameFile}");
+
+            }
+            
+        }
+
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+
+            $name = Str::kebab($request->name);
+
+            $extension = $request->image->extension();
+            
+            $nameFile = "{$name}.{$extension}";
+            $data['image'] = $nameFile;
+
+            $upload = $request->image->storeAs($this->path, $nameFile);
+
+            if (!$upload)
+                return response()->json(['error' => 'Fail_Upload'], 500);
+        }
+
+        $team->update($data);
+        return response()->json([$team, 'success' => 'O registro foi atualizado com sucesso.', 200]);
 
     }
 

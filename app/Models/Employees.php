@@ -23,5 +23,12 @@ class Employees extends Model
 
     }
 
+    public function team() {
+
+        return $this->belongsTo(Teams::class);
+
+    }
+
+
 
 }

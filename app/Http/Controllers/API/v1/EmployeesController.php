@@ -20,6 +20,24 @@ class EmployeesController extends Controller
         $this->employees = $employees;
     }
 
+    public function team($id) {
+
+        $employees = $this->employees->find($id);
+
+        if (!$employees) {
+            return response()->json(['error' => 'Funcionário não encontrado', 404]);
+        }
+
+        $team = $employees->team()->get();
+
+        return response()->json([
+            'employees' => $employees,
+            'team' => $team
+        ]);
+
+    }
+
+
     /**
      * Display a listing of the resource.
      *

@@ -21,6 +21,22 @@ class TeamsController extends Controller
         $this->teams = $teams;
     }
 
+    public function employees($id) {
+
+        $teams = $this->teams->find($id);
+
+        if (!$teams) {
+            return response()->json(['error' => 'Time não encontrado', 404]);
+        }
+
+        $employees = $teams->employees()->get();
+
+        return response()->json([
+            'teams' => $teams,
+            'employees' => $employees
+        ]);
+
+    }
 
     /**
      * Display a listing of the resource.

@@ -18,8 +18,8 @@ class CreateTeamsTable extends Migration
             $table->timestamps();
             $table->string('name');
             $table->string('image')->nullable();
-            $table->integer('state_id')->unsigned();
-            $table->foreign('state_id')
+            $table->integer('states_id')->unsigned();
+            $table->foreign('states_id')
                 ->references('id')
                 ->on('states')
                 ->onDelete('cascade');

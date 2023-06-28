@@ -20,13 +20,13 @@ class CreateEmployeesTable extends Migration
             $table->integer('age');
             $table->tinyInteger('genre');
             $table->string('image')->nullable();
-            $table->integer('team_id')->unsigned();
-            $table->foreign('team_id')
+            $table->integer('teams_id')->unsigned();
+            $table->foreign('teams_id')
                   ->references('id')
                   ->on('teams')
                   ->onDelete('cascade');
-            $table->integer('position_id');
-            $table->foreign('position_id')
+            $table->integer('positions_id');
+            $table->foreign('positions_id')
                   ->references('id')
                   ->on('positions')
                   ->onDelete('cascade');

@@ -15,7 +15,7 @@ class TeamsFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'state_id' => rand(1, 26)
+            'states_id' => rand(1, 26)
         ];
     }
 }

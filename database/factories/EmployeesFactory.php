@@ -22,8 +22,8 @@ class EmployeesFactory extends Factory
             'name' => $this->faker->name(),
             'age' => $age,
             'genre' => $genre,
-            'team_id' => $team_id,
-            'position_id' => $position_id
+            'teams_id' => $team_id,
+            'positions_id' => $position_id
         ];
     }
 }

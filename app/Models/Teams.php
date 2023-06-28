@@ -23,6 +23,10 @@ class Teams extends Model
 
     }
 
+    public function employees() {
 
+        return $this->hasMany(Employees::class);
+
+    }
 
 }

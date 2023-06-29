@@ -88,6 +88,12 @@ class EmployeesController extends Controller
     public function show($id)
     {
         $employee = $this->employees->find($id);
+
+        if (!$employee) {
+            return response()->json(['error' => 'Funcionário não encontrado.', 404]);
+        }
+
+        $employee = $this->employees->find($id);
         return response()->json(['success' => $employee, 200]);
     }
 

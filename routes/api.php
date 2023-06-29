@@ -16,6 +16,8 @@ Route::group(['prefix' => 'v1'], function () {
     
     Route::apiResource('teams', TeamsController::class);
     Route::apiResource('employees', EmployeesController::class);
+    Route::apiResource('positions', PositionsController::class);
+    Route::apiResource('states', StatesController::class);
     
 });
 

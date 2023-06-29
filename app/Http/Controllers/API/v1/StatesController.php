@@ -39,20 +39,12 @@ class StatesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $states = $this->states->listPositions($request->name);
+        return response()->json(['success' => $states, 200]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -62,7 +54,8 @@ class StatesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $state = $this->states->create($request->all());
+        return response()->json(['success' => 'Estado registrado com sucesso.', $state, 200]);
     }
 
     /**
@@ -73,18 +66,13 @@ class StatesController extends Controller
      */
     public function show($id)
     {
-        //
-    }
+        $state = $this->states->find($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        if (!$state) {
+            return response()->json(['error' => 'Estado não encontrado.', 404]);
+        }
+        
+        return response()->json(['success' => $state, 200]);
     }
 
     /**
@@ -96,7 +84,14 @@ class StatesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $state = $this->states->find($id);
+
+        if (!$state) {
+            return response()->json(['error' => 'Estado não encontrado.', 404]);
+        }
+
+        $state->update($request->all());
+        return response()->json(['success' => 'Estado atualizado com sucesso.', $state, 200]);
     }
 
     /**
@@ -107,6 +102,13 @@ class StatesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $state = $this->states->find($id);
+
+        if (!$state) {
+            return response()->json(['error' => 'Estado não encontrado.', 404]);
+        }
+
+        $state->delete();
+        return response()->json(['success' => 'Estado deletado com sucesso.', 200]);
     }
 }

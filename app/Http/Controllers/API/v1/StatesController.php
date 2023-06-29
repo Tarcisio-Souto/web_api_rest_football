@@ -1,12 +1,39 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
+use App\Models\States;
 use Illuminate\Http\Request;
 
 class StatesController extends Controller
 {
+
+    private $states;
+
+    public function __construct(States $states)
+    {
+        $this->states = $states;
+    }
+
+    public function teams($id) {
+
+        $states = $this->states->find($id);
+
+        if (!$states) {
+            return response()->json(['error' => 'Estado não encontrado', 404]);
+        }
+
+        $teams = $states->teams()->get();
+
+        return response()->json([
+            'states' => $states,
+            'teams' => $teams
+        ]);
+
+    }
+
+
     /**
      * Display a listing of the resource.
      *

@@ -23,12 +23,12 @@ class Employees extends Model
 
     }
 
-    public function team() {
-
-        return $this->belongsTo(Teams::class);
-
+    public function position() {
+        return $this->belongsTo(Positions::class);
     }
 
-
+    public function teams() {
+        return $this->belongsTo(Teams::class);
+    }
 
 }

@@ -28,7 +28,7 @@ class EmployeesController extends Controller
             return response()->json(['error' => 'Funcionário não encontrado', 404]);
         }
 
-        $team = $employees->team()->get();
+        $team = $employees->teams()->get();
 
         return response()->json([
             'employees' => $employees,

@@ -1,12 +1,40 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\v1;
 
 use App\Models\Positions;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PositionsController extends Controller
 {
+
+    private $positions;
+    private $totalRows = 10;
+
+    public function __construct(Positions $positions)
+    {
+        return $this->positions = $positions;
+    }
+
+    public function employees($id) {
+
+        $position = $this->positions->find($id);
+
+        if (!$position) {
+            return response()->json(['error' => 'Cargo não encontrado', 404]);
+        }
+
+        $employees = $position->employees()->paginate($this->totalRows);
+        
+        return response()->json([
+            'position' => $position,
+            'employees' => $employees
+        ]);
+
+    }
+
+
     /**
      * Display a listing of the resource.
      *

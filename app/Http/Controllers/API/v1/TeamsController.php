@@ -8,7 +8,6 @@ use App\Models\Teams;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
 class TeamsController extends Controller
 {

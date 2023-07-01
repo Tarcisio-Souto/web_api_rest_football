@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AuthApiController;
 use App\Http\Controllers\API\v1\TeamsController;
 use App\Http\Controllers\API\v1\EmployeesController;
 use App\Http\Controllers\API\v1\PositionsController;
@@ -7,7 +8,14 @@ use App\Http\Controllers\API\v1\StatesController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::group(['prefix' => 'v1'], function () {
+
+Route::post('login', [AuthApiController::class, 'login']);
+Route::post('logout', [AuthApiController::class, 'logout']);
+Route::post('refresh', [AuthApiController::class, 'refresh']);
+Route::post('me', [AuthApiController::class, 'me']);
+
+
+Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
 
     Route::get('teams/{id}/employees', [TeamsController::class, "employees"]);
     Route::get('employees/{id}/team', [EmployeesController::class, "team"]);

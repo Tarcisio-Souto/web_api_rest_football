@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             StatesTableSeeder::class,
             TeamsTableSeeder::class,
             PositionsTableSeeder::class,
-            EmplooyesTableSeeder::class
+            EmplooyesTableSeeder::class,
+            UsersTableSeeder::class
         ]);
 
     }

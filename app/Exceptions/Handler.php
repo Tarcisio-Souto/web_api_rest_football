@@ -38,7 +38,6 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $e)
     {
-        //dd($e);
 
         if ($e instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
             if ($request->expectsJson())
@@ -50,6 +49,11 @@ class Handler extends ExceptionHandler
                 return response()->json(['error' => 'Esta rota nao suporta este metodo.', $e->getStatusCode()]);
         }
 
+        if ($e instanceof \Illuminate\Auth\AuthenticationException) {
+            if ($request->expectsJson())
+                return response()->json(['error' => 'Usuario nao autenticado.', 401]);
+        }
+        
         return parent::render($request, $e);
 
     }
